@@ -18,14 +18,13 @@ package com.yourorg;
 import org.junit.jupiter.api.Test;
 import org.openrewrite.DocumentExample;
 import org.openrewrite.Recipe;
-import org.openrewrite.java.template.RecipeDescriptor;
 import org.openrewrite.test.RecipeSpec;
 import org.openrewrite.test.RewriteTest;
 
 import static org.openrewrite.java.Assertions.java;
 
 //@Disabled("Remove this annotation to run the tests once you implement the recipe")
-class StringIsEmptyTmpTest implements RewriteTest {
+class StringIsEmptyCheckEqualsFirstTest implements RewriteTest {
 
     @Override
     public void defaults(RecipeSpec spec) {
@@ -33,7 +32,8 @@ class StringIsEmptyTmpTest implements RewriteTest {
         // You might need to trigger an explicit build of your project to generate this class with Ctrl + F9
 
         // TODO: Uncomment the line below once you have implemented the recipe
-        spec.recipe(new StringIsEmptyTmpRecipe());
+        spec.recipe(new StringIsEmptyCheckEqualsFirstRecipe());
+
     }
 
     @DocumentExample
@@ -158,32 +158,10 @@ class StringIsEmptyTmpTest implements RewriteTest {
     }
 
     @Test
-    void equalsEmptyString() {
-        rewriteRun(
-          // language=java
-          java(
-            """
-              class A {
-                  void test(String s, boolean b) {
-                      b = s.equals("");
-                  }
-              }""",
-            """
-              class A {
-                  void test(String s, boolean b) {
-                      b = s.isEmpty();
-                  }
-              }
-              """
-          )
-        );
-    }
-
-    @Test
     void recipeDocumentation() {
         // This is a test to validate the correctness of the documentation in the recipe
         // By default you get generated documentation, but you can customize it through the RecipeDescriptor annotation
-        Recipe recipe = new StringIsEmptyTmpRecipe();
+        Recipe recipe = new StringIsEmptyCheckEqualsFirstRecipe();
         String displayName = recipe.getDisplayName();
         String description = recipe.getDescription();
         assert "Standardize empty String checks".equals(displayName) : displayName;

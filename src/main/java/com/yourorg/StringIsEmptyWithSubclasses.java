@@ -23,44 +23,54 @@ import org.openrewrite.java.template.RecipeDescriptor;
 // The rule should replace calls to `String.length() == 0` with `String.isEmpty()`, as well as similar variants.
 // You're done when all the tests in `StringIsEmptyTest` passes.
 @RecipeDescriptor(name = "Standardize empty String checks",
-        description = "Replace calls to `String.length() == 0` with `String.isEmpty()`."
+description = "Replace calls to `String.length() == 0` with `String.isEmpty()`."
 )
-public class StringIsEmpty {
+public class StringIsEmptyWithSubclasses {
 
-    @BeforeTemplate
-    boolean stringLengthZero(String s) {
-        return s.length() == 0;
+    public class StringIsEmptyMethodInvocation {
+        @BeforeTemplate
+        boolean equalsEmptyString(String string) {
+            return string.equals("");
+        }
+
+        @BeforeTemplate
+        boolean equalsEmptySwitched(String s) {
+            return "".equals(s);
+        }
+
+
+        @AfterTemplate
+        boolean stringIsEmpty(String s) {
+            return s.isEmpty();
+        }
+
     }
 
-    @BeforeTemplate
-    boolean stringLengthZeroSwitched(String s) {
-        return 0 == s.length();
-    }
+    public class StringIsEmptyBinary {
+        @BeforeTemplate
+        boolean stringLengthZero(String s) {
+            return s.length() == 0;
+        }
 
-    @BeforeTemplate
-    boolean lengthLess1(String s) {
-        return s.length() < 1;
-    }
+        @BeforeTemplate
+        boolean stringLengthZeroSwitched(String s) {
+            return 0 == s.length();
+        }
 
-    @BeforeTemplate
-    boolean lengthLess1Switched(String s) {
-        return 1 > s.length();
-    }
+        @BeforeTemplate
+        boolean lengthLess1(String s) {
+            return s.length() < 1;
+        }
 
-    @BeforeTemplate
-    boolean equalsEmptyString(String string) {
-        return string.equals("");
-    }
+        @BeforeTemplate
+        boolean lengthLess1Switched(String s) {
+            return 1 > s.length();
+        }
 
-    @BeforeTemplate
-    boolean equalsEmptySwitched(String s) {
-        return "".equals(s);
-    }
-
-
-    @AfterTemplate
-    boolean stringIsEmpty(String s) {
-        return s.isEmpty();
+        @AfterTemplate
+        boolean stringIsEmpty(String s) {
+            return s.isEmpty();
+        }
     }
 
 }

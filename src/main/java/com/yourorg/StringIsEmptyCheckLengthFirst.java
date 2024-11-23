@@ -23,9 +23,9 @@ import org.openrewrite.java.template.RecipeDescriptor;
 // The rule should replace calls to `String.length() == 0` with `String.isEmpty()`, as well as similar variants.
 // You're done when all the tests in `StringIsEmptyTest` passes.
 @RecipeDescriptor(name = "Standardize empty String checks",
-        description = "Replace calls to `String.length() == 0` with `String.isEmpty()`."
+description = "Replace calls to `String.length() == 0` with `String.isEmpty()`."
 )
-public class StringIsEmpty {
+public class StringIsEmptyCheckLengthFirst {
 
     @BeforeTemplate
     boolean stringLengthZero(String s) {

@@ -14,12 +14,12 @@ import org.openrewrite.java.tree.Statement;
 import static org.openrewrite.java.template.internal.AbstractRefasterJavaVisitor.EmbeddingOption.SHORTEN_NAMES;
 import static org.openrewrite.java.template.internal.AbstractRefasterJavaVisitor.EmbeddingOption.SIMPLIFY_BOOLEANS;
 
-public class StringIsEmptyTmpRecipe extends Recipe {
+public class StringIsEmptyVisitorRecipe extends Recipe {
 
     /**
      * Instantiates a new instance.
      */
-    public StringIsEmptyTmpRecipe() {
+    public StringIsEmptyVisitorRecipe() {
     }
 
     @Override
