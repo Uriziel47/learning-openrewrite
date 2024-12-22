@@ -64,4 +64,19 @@ class AppendToReleaseNotesTest implements RewriteTest {
           )
         );
     }
+
+    @Test
+    void dontEditExistingReleaseNotes() {
+        // When the file does already exist, we assert the content is modified as expected.
+        rewriteRun(
+          text(
+            """
+              You say goodbye, I say
+              Hello world
+              """,
+            spec -> spec.path(Paths.get("RELEASE.md")
+            )
+          )
+        );
+    }
 }
